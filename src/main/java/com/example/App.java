@@ -16,7 +16,7 @@ public class App {
         options.addArguments("--remote-allow-origins=*"); // Avoid connection issues
 
         // Optional: Set Chrome binary path (if needed)
-        options.setBinary("/usr/bin/google-chrome");
+        options.setBinary("options.setBinary("/usr/bin/google-chrome-stable");");
 
         // Initialize WebDriver
         WebDriver driver = new ChromeDriver(options);
