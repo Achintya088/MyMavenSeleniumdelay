@@ -1,26 +1,41 @@
 package com.example;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public class App {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://practicetestautomation.com/practice-test-login/");
-        driver.manage().window().maximize();
-        
-        Thread.sleep(5000);
+        // Set Chrome options for Jenkins (headless environment)
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless=new"); // Run without GUI
+        options.addArguments("--no-sandbox"); // Required for Jenkins/Linux
+        options.addArguments("--disable-dev-shm-usage"); // Prevent memory issues
+        options.addArguments("--disable-gpu"); // Optional but safe
+        options.addArguments("--remote-allow-origins=*"); // Avoid connection issues
 
-        driver.findElement(By.id("username")).sendKeys("student");
-        Thread.sleep(5000);
-        driver.findElement(By.id("password")).sendKeys("Password123");
-        Thread.sleep(5000);
-        driver.findElement(By.id("submit")).click();
+        // Optional: Set Chrome binary path (if needed)
+        options.setBinary("/usr/bin/google-chrome");
 
-        Thread.sleep(5000);
+        // Initialize WebDriver
+        WebDriver driver = new ChromeDriver(options);
 
-        driver.quit();
+        try {
+            // Open a website
+            driver.get("https://www.google.com");
+
+            // Print title (for verification in Jenkins logs)
+            System.out.println("Page Title: " + driver.getTitle());
+
+            // Wait for few seconds (simulate your delay)
+            Thread.sleep(3000);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Close browser
+            driver.quit();
+        }
     }
 }
