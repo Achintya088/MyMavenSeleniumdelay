@@ -17,6 +17,10 @@ public class App {
         options.addArguments("--disable-software-rasterizer");
         options.addArguments("--remote-debugging-port=9222");
 
+        // 🔥 CRITICAL FIX (Snap Jenkins workaround)
+        options.addArguments("--user-data-dir=/tmp/chrome-user-data");
+        options.addArguments("--data-path=/tmp/chrome-data");
+
         options.setBinary("/usr/bin/google-chrome-stable");
 
         WebDriver driver = new ChromeDriver(options);
