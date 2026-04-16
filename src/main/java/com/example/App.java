@@ -7,25 +7,27 @@ import org.openqa.selenium.chrome.ChromeOptions;
 public class App {
     public static void main(String[] args) {
 
+        // Set Chrome options for Jenkins
         ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless=new");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--disable-gpu");
 
-        // ✅ Correct syntax (comma-separated)
-        options.addArguments(
-                "--headless=new",
-                "--no-sandbox",
-                "--disable-dev-shm-usage",
-                "--disable-gpu",
-                "--remote-allow-origins=*"
-        );
-
+        // ✅ FIX: correct Chrome binary path
         options.setBinary("/usr/bin/google-chrome-stable");
 
+        // Initialize driver
         WebDriver driver = new ChromeDriver(options);
 
         try {
             driver.get("https://www.google.com");
-            System.out.println("Title: " + driver.getTitle());
+
+            // Print title (for Jenkins console)
+            System.out.println("Page Title: " + driver.getTitle());
+
             Thread.sleep(3000);
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
